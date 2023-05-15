@@ -1,34 +1,96 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- head definitions go here -->
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="login-container">
-          <h2>Đăng nhập</h2>
-          <form>
-            <label for="username">Tên đăng nhập:</label>
-            <input type="text" id="username" name="username">
-            <br>
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" name="password">
-            <br>
-            <button type="submit">Đăng nhập</button>
-          </form>
-        </div>
-      </body>
-      <script>
-        const form = document.querySelector('form');
-        form.addEventListener('submit', (event) => {
-          event.preventDefault(); // Ngăn chặn form submit
-          const username = form.username.value;
-          const password = form.password.value;
-          if (username === 'admin' && password === '123456') {
-            alert('Yêu ánhhhhhh <3 I love you 3000!');
-          } else {
-            alert('Tên đăng nhập hoặc mật khẩu không chính xác!');
-          }
-        });
-      </script>
+<head>
+    <title>Tính điểm trung bình môn học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tính điểm trung bình môn học</h2>
+        <form id="gradeForm">
+            <div class="form-group">
+                <label for="inputTotalScore">Tổng điểm kiểm tra miệng (hoặc 15 phút)</label>
+                <input type="number" id="inputTotalScore" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="inputMidtermScore">Điểm giữa kỳ</label>
+                <input type="number" id="inputMidtermScore" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="inputFinalScore">Điểm cuối kỳ</label>
+                <input type="number" id="inputFinalScore" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="inputNumTests">Số lần kiểm tra miệng (hoặc 15 phút)</label>
+                <input type="number" id="inputNumTests" step="1" required>
+            </div>
+            <input type="submit" value="Tính toán">
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("gradeForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Ngăn chặn submit form
+
+            // Lấy giá trị từ các ô input
+            var totalScore = parseFloat(document.getElementById("inputTotalScore").value);
+            var midtermScore = parseFloat(document.getElementById("inputMidtermScore").value);
+            var finalScore = parseFloat(document.getElementById("inputFinalScore").value);
+            var numTests = parseInt(document.getElementById("inputNumTests").value);
+
+            // Tính điểm trung bình môn học
+        var averageGrade = (totalScore / numTests + midtermScore * 2 + finalScore * 3) / 6;
+
+// Làm tròn kết quả đến số thập phân thứ nhất
+averageGrade = averageGrade.toFixed(1);
+
+// Hiển thị kết quả
+document.getElementById("result").innerHTML = "Điểm trung bình môn học: " + averageGrade;
+});
+</script>
+</body>
 </html>
